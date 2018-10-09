@@ -1,5 +1,6 @@
 'use strict';
 
+require('dotenv').config({path: __dirname + '/.env'})
 var express     = require('express');
 var bodyParser  = require('body-parser');
 var expect      = require('chai').expect;
@@ -11,7 +12,7 @@ var runner            = require('./test-runner');
 
 var app = express();
 
-app.use('/public', express.static(process.cwd() + '/public'));
+app.use('/public', express.static(__dirname + '/public'));
 
 app.use(cors({origin: '*'})); //For FCC testing purposes only
 
@@ -23,13 +24,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Sample front-end
 app.route('/:project/')
   .get(function (req, res) {
-    res.sendFile(process.cwd() + '/views/issue.html');
+    res.sendFile(__dirname + '/views/issue.html');
   });
 
 //Index page (static HTML)
 app.route('/')
   .get(function (req, res) {
-    res.sendFile(process.cwd() + '/views/index.html');
+    res.sendFile(__dirname + '/views/index.html');
   });
 
 //For FCC testing purposes
